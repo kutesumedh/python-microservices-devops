@@ -39,19 +39,19 @@ jobs:
 
       - name: Build & Push Backend
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:new ./backend
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend:new
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend: ./backend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend:
 
       - name: Build & Push Frontend
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:new ./frontend
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend:new
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend: ./frontend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend:
 
       
       - name: Build & Push Logger
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/logger:new ./logger
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/logger:new
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/logger: ./logger
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/logger:
 
   notify:
     runs-on: ubuntu-latest
