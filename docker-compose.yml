@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    image: sumedhkute/backend:new  
+    container_name: backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_NAME: mydb
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_PORT: 5432
+    volumes:
+      - logs:/logs 
+
+  frontend:
+    image: sumedhkute/frontend:new 
+    container_name: frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    environment:
+      BACKEND_URL: http://backend:5000/api/data
+
+  logger:
+    image: sumedhkute/logger:new 
+    container_name: logger
+    depends_on:
+      - backend
+    volumes:
+      - logs:/logs  
+
+volumes:
+  pgdata:
+  logs:
